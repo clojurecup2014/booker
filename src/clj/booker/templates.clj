@@ -23,7 +23,7 @@
   [:.date] (enlive/content (format-date date))
   [:.destination] (enlive/content dest)
   [:.pic] (enlive/set-attr :src (:pic user))
-  [:a.button] (enlive/set-attr :href (str "/profile/" (:id user)))
+  [:a] (enlive/set-attr :href (str "/profile/" (:id user)))
   )
 
 

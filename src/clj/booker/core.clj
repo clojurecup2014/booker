@@ -17,7 +17,9 @@
     ;internal
     [booker.templates :as templates]
     [booker.data :refer [wrap-atom-store store]]
-    ))
+    )
+  (:gen-class)
+  )
 
 ;; Auth configuration
 

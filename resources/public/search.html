@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+    <meta content='' name='description'>
+    <title>
+      Booker: Find a friend while travelling
+    </title>
+    <link href="/css/base.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/css/skeleton.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/css/layout.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body class='search'>
+    <div class='container'>
+      <h1>
+        Search
+      </h1>
+      <div class='row' id='search-terms-row'>
+        <form class='sixteen columns' id='search-terms'>
+          <p>
+            People in
+            <input class='destination' type='text' value='Istanbul'>
+            around
+            <input class='date' type='date'>
+            <button class='button'>Update</button>
+          </p>
+        </form>
+      </div>
+      <table id='search-result-table'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Place</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class='search-result-row'>
+            <td class='name'>
+              <a href='profile.html'>
+                <img class='pic' src='/img/pic.jpg'>
+              </a>
+              <a href='profile.html'>
+                <span class='name'>Adam Bard</span>
+              </a>
+            </td>
+            <td class='destination'>
+              Istanbul
+            </td>
+            <td class='date'>
+              September 26, 2014
+            </td>
+            <td class='controls'>
+              <a class='button' href='profile.html'>
+                Contact
+              </a>
+            </td>
+          </tr>
+          <tr class='search-result-row'>
+            <td class='name'>
+              <a href='profile.html'>
+                <img class='pic' src='/img/pic.jpg'>
+              </a>
+              <a href='profile.html'>
+                <span class='name'>Adam Bard</span>
+              </a>
+            </td>
+            <td class='destination'>
+              Istanbul
+            </td>
+            <td class='date'>
+              September 26, 2014
+            </td>
+            <td class='controls'>
+              <a class='button'>
+                Contact
+              </a>
+            </td>
+          </tr>
+          <tr class='search-result-row'>
+            <td class='name'>
+              <a href='profile.html'>
+                <img class='pic' src='/img/pic.jpg'>
+              </a>
+              <a href='profile.html'>
+                <span class='name'>Adam Bard</span>
+              </a>
+            </td>
+            <td class='destination'>
+              Istanbul
+            </td>
+            <td class='date'>
+              September 26, 2014
+            </td>
+            <td class='controls'>
+              <a class='button' href='profile.html'>
+                Contact
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Want to meet people?</h2>
+      <p id='authenticated'>
+        <a class='button'>Add Me To The List</a>
+      </p>
+      <p id='unauthenticated'>
+        <a class='button'>Authenticate with Facebook</a>
+        to set up your profile and add yourself to the list!
+      </p>
+    </div>
+    <div class='footer'>
+      <div class='container'>
+        <div class='copyright'>
+          Created by
+          <a href='http://adambard.com/'>Adam Bard</a>
+          for
+          <a href='https://clojurecup.com/'>Clojure Cup 2014</a>
+        </div>
+      </div>
+    </div>
+    <script src="/js/booker.min.js" type="text/javascript"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      
+      ga('create', 'UA-XXXXXXXX-XX', 'mydomain.com');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

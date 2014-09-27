@@ -1,0 +1,74 @@
+---
+title: "Booker: Find a friend while travelling"
+description: ""
+---
+
+.container
+  %h1
+    Search
+
+  .row#search-terms-row
+    %form#search-terms.sixteen.columns
+      %p
+        People in
+        %input.destination(type="text" value="Istanbul")
+        around
+        %input.date(type="date")
+        %button.button Update
+
+  %table#search-result-table
+    %thead
+      %tr
+        %th Name
+        %th Place
+        %th Date
+
+    %tbody
+      %tr.search-result-row
+        %td.name
+          %a(href="profile.html")
+            %img.pic(src="/img/pic.jpg")
+          %a(href="profile.html")
+            %span.name Adam Bard
+        %td.destination
+          Istanbul
+        %td.date
+          September 26, 2014
+        %td.controls
+          %a.button(href="profile.html")
+            Contact
+      %tr.search-result-row
+        %td.name
+          %a(href="profile.html")
+            %img.pic(src="/img/pic.jpg")
+          %a(href="profile.html")
+            %span.name Adam Bard
+        %td.destination
+          Istanbul
+        %td.date
+          September 26, 2014
+        %td.controls
+          %a.button
+            Contact
+      %tr.search-result-row
+        %td.name
+          %a(href="profile.html")
+            %img.pic(src="/img/pic.jpg")
+          %a(href="profile.html")
+            %span.name Adam Bard
+        %td.destination
+          Istanbul
+        %td.date
+          September 26, 2014
+        %td.controls
+          %a.button(href="profile.html")
+            Contact
+
+  %h2 Want to meet people?
+
+  %p#authenticated
+    %a.button Add Me To The List
+
+  %p#unauthenticated
+    %a.button Authenticate with Facebook
+    to set up your profile and add yourself to the list!

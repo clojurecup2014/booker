@@ -2,19 +2,20 @@
 
 // Golden ratio bitches!
 $vs: 40px
-$hs: $vs * 1.681
+$hs: $vs / 1.681
 $color: #0bf
 
 body
   color: #444
   font-family: "Oxygen"
   font-size: 100%
+  font-weight: 400
 
 // Resets from Skeleton
-h1, h2, h3, h4, h5, h6, p, ul, li
+h1, h2, h3, h4, h5, h6, p, ul, li, section
   font-family: inherit
   line-height: $vs
-  margin-top: $vs
+  margin: $vs 0 0 0
 
 li+li
   margin-top: 0px
@@ -24,6 +25,7 @@ a, a:visited
 
 // Make buttons more interesting
 .button, .button:visited
+  margin: 0
   background: $color
   color: #fff
   text-shadow: none
@@ -53,24 +55,63 @@ a, a:visited
   background-size: cover
   height: 100%
 
-  .inputs
-    font-size: 1.2em
-    margin-top: $vs * 2
-    input, label
-      display: inline
-      font-size: inherit
-      font-family: inherit
-      font-weight: bold
-    .btn
-      text-align: right
+#inputs-row
+  font-size: 1.2em
+  margin-top: $vs * 2
+  background: rgba(255, 255, 255, 0.7)
+  line-height: $vs
+  font-family: inherit
+  color: #444
+  form
+    margin: 0
+    padding: 0
 
-
-    background: rgba(255, 255, 255, 0.7)
-    line-height: $vs * 2
+  input, label, select
+    font-size: inherit
     font-family: inherit
-    color: #444
+    font-weight: bold
+    margin: 0
+    padding: 0
+    padding: 0
+  .btn
+    margin-top: $vs / 2
+    text-align: right
+
+
+#search-terms-row
+  input
+    display: inline
+
+table#search-result-table
+  width: 100%
+  font-size: 1.2em
+  border-collapse: collapse
+  th, td
+    padding: 5px
+    line-height: $vs
+    text-align: left
+    margin: 0
+  th
+    font-weight: 700
+  td
+    border-top: 2px solid #eee
+    vertical-align: middle
+  .pic
+    width: $vs
+    height: $vs
+    margin-right: $hs
+    float: left
+  .controls
+    text-align: right
+
+#profile
+  .pic
+    width: 150px
+    height: 150px
+
 
 .footer
+  margin-top: $vs * 2
   background: #444
   border-top: 2px solid #222
   color: #fff

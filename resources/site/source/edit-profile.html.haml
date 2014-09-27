@@ -1,0 +1,24 @@
+---
+title: "Booker: Find a friend while travelling"
+description: ""
+---
+
+.container
+  %h1 My Profile
+
+  %section#profile
+    %form(action="profile.html")
+      .row
+        .four.columns
+          %img.pic(src="/img/pic.jpg")
+
+        .twelve.columns
+
+          %label My Name
+          %input.name(type="text")
+
+          %label About Me
+          %textarea.about(placeholder="I like ponies")
+
+          %button.button(type="submit") Save
+

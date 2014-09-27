@@ -13,34 +13,42 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='index'>
-    <div class='splash'>
-      <div class='container'>
-        <div class='welcome row'>
-          <h1>Booker</h1>
-          <h2>
-            Find a friend in
-            <span id='city-name'>Rotating City Name</span>
-          </h2>
-        </div>
-        <div class='row' id='inputs-row'>
-          <div id='inputs'>
-            <form>
-              <div class='six columns'>
-                <label>I'm going to</label>
-                <select class='destination' name='destination'></select>
-              </div>
-              <div class='six columns'>
-                <label>on</label>
-                <input class='date' name='date' type='date'>
-              </div>
-              <div class='four columns btn'>
-                <button class='button submit' href='#'>Meet Someone New</button>
-              </div>
-            </form>
+  <body class='profile'>
+    <div class='container'>
+      <span id='authenticated'>
+        <h1>
+          My Profile
+          <a class='edit' href='edit-profile.html'>Edit</a>
+        </h1>
+      </span>
+      <span id='unauthenticated'>
+        <h1>
+          Profile:
+          <span class='name'>Adam Bard</span>
+        </h1>
+      </span>
+      <section id='profile'>
+        <div class='row'>
+          <div class='four columns'>
+            <img class='pic' src='/img/pic.jpg'>
+          </div>
+          <div class='twelve columns'>
+            <label>My Name</label>
+            <strong class='name'>Adam</strong>
+            <label>About Me</label>
+            <strong class='about'>I like ponies.</strong>
+            <h2>
+              Send
+              <span class='name'>Adam</span>
+              a message
+            </h2>
+            <p>
+              <textarea placeholder="Probably mention a bit about you, when you're in which city, and so on"></textarea>
+              <button class='button'>Send</button>
+            </p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
     <div class='footer'>
       <div class='container'>

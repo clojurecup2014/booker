@@ -1,0 +1,37 @@
+---
+title: "Booker: Find a friend while travelling"
+description: ""
+---
+
+.container
+  %span#authenticated
+    %h1
+      My Profile
+      %a.edit(href="edit-profile.html") Edit
+  %span#unauthenticated
+    %h1
+      Profile:
+      %span.name Adam Bard
+
+  %section#profile
+    .row
+      .four.columns
+        %img.pic(src="/img/pic.jpg")
+
+      .twelve.columns
+
+        %label My Name
+        %strong.name Adam
+
+        %label About Me
+        %strong.about I like ponies.
+
+        %h2
+          Send
+          %span.name Adam
+          a message
+
+        %p
+          %textarea(placeholder="Probably mention a bit about you, when you're in which city, and so on")
+
+          %button.button Send

@@ -1,5 +1,5 @@
 ---
-title: "Subbub: Your subscription storefront in minutes"
+title: "Booker: Find a friend while travelling"
 description: ""
 ---
 
@@ -10,14 +10,16 @@ description: ""
       %h1 Booker
       %h2
         Find a friend in
-        %span.city_name Rotating City Name
+        %span#city-name Rotating City Name
 
-    .row.inputs
-      .six.columns
-        %label I'm going to
-        %input.destination(type="text" name="destination")
-      .six.columns
-        %label on
-        %input.date(type="date" name="date")
-      .four.columns.btn
-        %a.button.submit(href="#") Meet Someone New
+    .row#inputs-row
+      #inputs
+        %form
+          .six.columns
+            %label I'm going to
+            %select.destination(name="destination")
+          .six.columns
+            %label on
+            %input.date(type="date" name="date")
+          .four.columns.btn
+            %button.button.submit(href="#") Meet Someone New

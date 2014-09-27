@@ -13,34 +13,25 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='index'>
-    <div class='splash'>
-      <div class='container'>
-        <div class='welcome row'>
-          <h1>Booker</h1>
-          <h2>
-            Find a friend in
-            <span id='city-name'>Rotating City Name</span>
-          </h2>
-        </div>
-        <div class='row' id='inputs-row'>
-          <div id='inputs'>
-            <form>
-              <div class='six columns'>
-                <label>I'm going to</label>
-                <select class='destination' name='destination'></select>
-              </div>
-              <div class='six columns'>
-                <label>on</label>
-                <input class='date' name='date' type='date'>
-              </div>
-              <div class='four columns btn'>
-                <button class='button submit' href='#'>Meet Someone New</button>
-              </div>
-            </form>
+  <body class='edit-profile'>
+    <div class='container'>
+      <h1>My Profile</h1>
+      <section id='profile'>
+        <form action='profile.html'>
+          <div class='row'>
+            <div class='four columns'>
+              <img class='pic' src='/img/pic.jpg'>
+            </div>
+            <div class='twelve columns'>
+              <label>My Name</label>
+              <input class='name' type='text'>
+              <label>About Me</label>
+              <textarea class='about' placeholder='I like ponies'></textarea>
+              <button class='button' type='submit'>Save</button>
+            </div>
           </div>
-        </div>
-      </div>
+        </form>
+      </section>
     </div>
     <div class='footer'>
       <div class='container'>

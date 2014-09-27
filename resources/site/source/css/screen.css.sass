@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,700,300)
+
+// Golden ratio bitches!
+$vs: 40px
+$hs: $vs * 1.681
+$color: #0bf
+
+body
+  color: #444
+  font-family: "Oxygen"
+  font-size: 100%
+
+// Resets from Skeleton
+h1, h2, h3, h4, h5, h6, p, ul, li
+  font-family: inherit
+  line-height: $vs
+  margin-top: $vs
+
+li+li
+  margin-top: 0px
+
+a, a:visited
+  color: $color
+
+// Make buttons more interesting
+.button, .button:visited
+  background: $color
+  color: #fff
+  text-shadow: none
+  border: 0px
+  font-size: inherit
+  &:hover, &:active
+    background: lighten($color, 10%)
+    color: #fff
+    border: 0px
+
+.splash
+  color: #fff
+  padding: $vs * 4
+  h1, h2
+    text-align: center
+    font-weight: 700
+    color: #fff
+    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3)
+  h1
+    font-size: 4em
+    line-height: $vs * 2
+  h2
+    color: rgba(255, 255, 255, 0.7)
+    span
+      color: rgba(255, 255, 255, 1)
+  background: url('../img/splash_1.jpg') no-repeat top center
+  background-size: cover
+  height: 100%
+
+  .inputs
+    font-size: 1.2em
+    margin-top: $vs * 2
+    input, label
+      display: inline
+      font-size: inherit
+      font-family: inherit
+      font-weight: bold
+    .btn
+      text-align: right
+
+
+    background: rgba(255, 255, 255, 0.7)
+    line-height: $vs * 2
+    font-family: inherit
+    color: #444
+
+.footer
+  background: #444
+  border-top: 2px solid #222
+  color: #fff
+  padding: $vs * 2 0
+  a
+    color: $color
+  .copyright
+    text-align: right

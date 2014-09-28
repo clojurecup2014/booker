@@ -219,7 +219,7 @@
 
 
 (defn send-email [from to msg]
-  (client/post
+  (logging/info "Postmark resp: " (client/post
     "https://api.postmarkapp.com/email"
     {:basic-auth ["api" "key-f5ed0911d1ab938386f743d7643f81eb"]
      :headers {"X-Postmark-Server-Token" (System/getenv "POSTMARK_SECRET")
@@ -230,7 +230,7 @@
                             "ReplyTo" from
                             "To" to
                             "Subject" "New message from Booker"
-                            "TextBody" msg})}))
+                            "TextBody" msg})})))
 
 (defn send-message [req]
   (let [from-user (current-user req)

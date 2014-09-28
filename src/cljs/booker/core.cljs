@@ -25,8 +25,9 @@
 
 ;; City spinner
 
-(def cities ["New York"
-             "Istanbul"
+(def cities ["Istanbul"
+             "Timbuktu"
+             "New York"
              "Kuala Lumpur"
              "Bangkok"
              "Krakow"
@@ -67,10 +68,6 @@
 
 
 
-; Entry point
-
-;(reagent/render-component [city-select] (.-body js/document))
-
 ;; Init datepickers
 
 (defn init-datepicker [el]
@@ -78,7 +75,8 @@
   (js/Pikaday. (js-obj
       "field" el
       "format" "YYYY-MM-DD"
-      )))
+      "minDate" (js/Date. 2009 0 1))))
+
 
 (defn els-by-tag [tag]
   (let [els (js/document.getElementsByTagName "input")]

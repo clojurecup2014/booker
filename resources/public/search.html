@@ -40,6 +40,30 @@
         <tbody>
           <tr class='search-result-row'>
             <td class='name'>
+              <a class='profile' href='profile.html'>
+                <img class='pic' src='/img/pic.jpg'>
+              </a>
+              <a class='profile' href='profile.html'>
+                <span class='name'>Adam Bard</span>
+              </a>
+            </td>
+            <td class='destination'>
+              Istanbul
+            </td>
+            <td class='date'>
+              September 26, 2014
+            </td>
+            <td class='controls'>
+              <a class='button profile' href='profile.html'>
+                Contact
+              </a>
+              <form class='delete'>
+                <button class='delete'>Delete</button>
+              </form>
+            </td>
+          </tr>
+          <tr class='search-result-row'>
+            <td class='name'>
               <a href='profile.html'>
                 <img class='pic' src='/img/pic.jpg'>
               </a>
@@ -80,37 +104,24 @@
               </a>
             </td>
           </tr>
-          <tr class='search-result-row'>
-            <td class='name'>
-              <a href='profile.html'>
-                <img class='pic' src='/img/pic.jpg'>
-              </a>
-              <a href='profile.html'>
-                <span class='name'>Adam Bard</span>
-              </a>
-            </td>
-            <td class='destination'>
-              Istanbul
-            </td>
-            <td class='date'>
-              September 26, 2014
-            </td>
-            <td class='controls'>
-              <a class='button' href='profile.html'>
-                Contact
-              </a>
-            </td>
-          </tr>
         </tbody>
       </table>
       <h2>Want to meet people?</h2>
-      <p id='authenticated'>
-        <a class='button'>Add Me To The List</a>
-      </p>
-      <p id='unauthenticated'>
-        <a class='button'>Authenticate with Facebook</a>
-        to set up your profile and add yourself to the list!
-      </p>
+      <div id='authenticated'>
+        <form id='add-trip'>
+          I'm going to
+          <input class='destination' type='text'>
+          around
+          <input class='date' type='date'>
+          <button class='button' type='submit'>Add Me To The List</button>
+        </form>
+      </div>
+      <div id='unauthenticated'>
+        <p>
+          <a class='button'>Authenticate with Facebook</a>
+          to set up your profile.
+        </p>
+      </div>
     </div>
     <div class='footer'>
       <div class='container'>

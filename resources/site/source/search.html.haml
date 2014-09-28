@@ -26,6 +26,21 @@ description: ""
     %tbody
       %tr.search-result-row
         %td.name
+          %a.profile(href="profile.html")
+            %img.pic(src="/img/pic.jpg")
+          %a.profile(href="profile.html")
+            %span.name Adam Bard
+        %td.destination
+          Istanbul
+        %td.date
+          September 26, 2014
+        %td.controls
+          %a.button.profile(href="profile.html")
+            Contact
+          %form.delete
+            %button.delete Delete
+      %tr.search-result-row
+        %td.name
           %a(href="profile.html")
             %img.pic(src="/img/pic.jpg")
           %a(href="profile.html")
@@ -50,25 +65,18 @@ description: ""
         %td.controls
           %a.button
             Contact
-      %tr.search-result-row
-        %td.name
-          %a(href="profile.html")
-            %img.pic(src="/img/pic.jpg")
-          %a(href="profile.html")
-            %span.name Adam Bard
-        %td.destination
-          Istanbul
-        %td.date
-          September 26, 2014
-        %td.controls
-          %a.button(href="profile.html")
-            Contact
 
   %h2 Want to meet people?
 
-  %p#authenticated
-    %a.button Add Me To The List
+  #authenticated
+    %form#add-trip
+      I'm going to
+      %input.destination(type="text")
+      around
+      %input.date(type="date")
+      %button.button(type="submit") Add Me To The List
 
-  %p#unauthenticated
-    %a.button Authenticate with Facebook
-    to set up your profile and add yourself to the list!
+  #unauthenticated
+    %p
+      %a.button Authenticate with Facebook
+      to set up your profile.

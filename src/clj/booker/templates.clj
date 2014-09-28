@@ -2,33 +2,61 @@
   (:require [net.cgrand.enlive-html :as enlive]
             net.cgrand.reload
             [booker.data :as data]
-            [booker.helpers :refer [as-date format-date]]
+            [booker.helpers :refer [as-date format-date attempt-all try* ->Failure]]
+            [clj-http.client :as client]
+            [clojure.data.json :as json]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [ring.util.response :as response]
             )
   )
 
 (net.cgrand.reload/auto-reload *ns*)
 
+; Utils
+
+(defn current-user [req]
+  (let [user-id (-> req :session :cemerick.friend/identity :current)]
+    (-> req :session :cemerick.friend/identity :authentications (get user-id))))
+
+(defn is-authenticated? [req]
+  (not (nil? (current-user req))))
+
+(defn is-current-user? [req user-id]
+  (and (is-authenticated? req) (= (:id (current-user req)) user-id)))
+
+(defn photo-url [user width height]
+  (if (:facebook-user-id user)
+    (str "https://graph.facebook.com/v2.1/" (:facebook-user-id user) "/picture?width=" width "&height=" height)
+    "/img/pic.jpg"
+  ))
+
+(defn insert-csrf-field []
+  (enlive/append (enlive/html-resource (java.io.StringReader. (anti-forgery-field)))))
 
 
-(enlive/deftemplate index-tpl "public/index.html"
-  [req]
-  )
+;; Home
+
+(enlive/deftemplate index-tpl "public/index.html" [req])
 
 
 ;; Search
 
 (enlive/defsnippet search-result-row "public/search.html" [[:tr.search-result-row (enlive/nth-of-type 1)]]
-  [{id :id user :user dest :destination date :date}]
+  [req {id :id user :user dest :destination date :date}]
   [:span.name] (enlive/content (:name user))
   [:.date] (enlive/content (format-date date))
   [:.destination] (enlive/content dest)
-  [:.pic] (enlive/set-attr :src (:pic user))
-  [:a] (enlive/set-attr :href (str "/profile/" (:id user)))
-  )
-
+  [:.pic] (enlive/set-attr :src (photo-url user 50 50))
+  [:a.profile] (enlive/set-attr :href (str "/profile/" (:id user)))
+  [:form.delete] (if (is-current-user? req (:id user))
+                   (enlive/do->
+                     (insert-csrf-field)
+                     (enlive/set-attr :action (str"/delete-trip/" id)
+                                      :method "POST"))
+                   (enlive/substitute "")))
 
 (enlive/deftemplate -search-tpl "public/search.html"
-  [{dest :destination date :date results :results}]
+  [req {dest :destination date :date results :results}]
   [:input.destination] (enlive/do->
                   (enlive/set-attr :value dest)
                   (enlive/set-attr :name "destination")
@@ -43,42 +71,117 @@
                          (enlive/set-attr :method "GET")
                          )
 
-  [:#search-result-table :tbody] (enlive/content (map search-result-row results))
+  [:#search-result-table :tbody] (enlive/content (map search-result-row (repeat req) results))
+
+  [:form#add-trip] (enlive/do->
+                     (insert-csrf-field)
+                     (enlive/set-attr :action "/create-trip")
+                     (enlive/set-attr :method "post"))
+
+  [:#unauthenticated :a.button] (enlive/set-attr :href "/edit-profile")
+
+  [:#authenticated] (if (is-authenticated? req) (enlive/wrap :div) (enlive/substitute ""))
+  [:#unauthenticated] (if (is-authenticated? req) (enlive/substitute "") (enlive/wrap :div))
   )
 
 (defn search-tpl [req]
   (let [{destination "destination"
          date "date"} (:query-params req)
-        results (data/query-trips (:store req) destination (as-date date))
+        results (map
+                  #(assoc % :user (data/get-user (:store req) (:user-id %)))
+                  (data/query-trips (:store req) destination (as-date date)))
+
         ]
-    (-search-tpl
+    (-search-tpl req
       {
        :destination destination
        :date date
-       :results results})))
+       :results results}
+      )))
 
 
 ;; Profile
 
 
 (enlive/deftemplate -profile-tpl "public/profile.html"
-  [user]
+  [user is-current-user]
   [:.name] (enlive/content (:name user))
   [:.about] (enlive/content (:description user))
+  [:img.pic] (enlive/set-attr :src (photo-url user 150 150))
+  [:a.edit] (enlive/set-attr :href "/edit-profile")
+  [:#authenticated] (if-not is-current-user (enlive/content "") (enlive/wrap :div))
+  [:#unauthenticated] (if is-current-user (enlive/content "") (enlive/wrap :div))
   )
 
 
 (defn profile-tpl [req]
   (let [user-id (-> req :route-params :id)
-        user (data/get-user (:store req) user-id)]
+        user (data/get-user (:store req) user-id)
+        is-current-user (= (:id (current-user req)) user-id)
+        ]
     (if user
-      (-profile-tpl user)
+      (-profile-tpl user is-current-user)
       "404 Not Found")))
 
 
-;; Edit Profile
+;; Create/Edit Profile
 
 
 (enlive/deftemplate edit-profile-tpl "public/edit-profile.html"
-  [req]
+  [user]
+  [:input.name] (enlive/set-attr :value (:name user) :name "name")
+  [:textarea.about] (enlive/do-> (enlive/content (:description user))
+                              (enlive/set-attr :name "description"))
+  [:img.pic] (enlive/set-attr :src (photo-url user 150 150))
+  [:form] (enlive/do->
+            (insert-csrf-field)
+            (enlive/set-attr :action "/update-profile")
+            (enlive/set-attr :method "post")))
+
+
+
+(defn edit-profile [req]
+  (let [user (current-user req)]
+    (edit-profile-tpl user)))
+
+
+(defn update-profile [req]
+  (let [user (current-user req)
+        params (:form-params req)
+        user (assoc user
+                    :name (get params "name")
+                    :description (get params "description"))
+        user-id (:id user)
+        ]
+    (data/put-user! (:store req) user)
+
+
+    (assoc (response/redirect (str "/profile/" user-id))
+           :session (assoc-in (:session req)
+                              [:cemerick.friend/identity :authentications user-id]
+                              user))))
+
+(defn add-trip [req]
+  (let [user (current-user req)
+        {date "date"
+         destination "destination"} (:form-params req)
+        trip (data/make-trip user destination date)]
+    (data/put-trip! (:store req) trip)
+
+    (response/redirect (str "/search?destination=" destination "&date=" date))))
+
+(defn delete-trip [req]
+  (let [user (current-user req)
+        trip-id (-> req :route-params :id)
+        trip (data/get-trip (:store req) trip-id)]
+    (if (= (:user-id trip) (:id user))
+      (data/delete-trip! (:store req) trip-id))
+    (response/redirect (str "/profile/" (:id user)))))
+
+
+(comment
+  (def tok "CAAKB8mJi3zQBAHgxqg2AdauRemVLszoPDckeNA0HZAEg39cczhgvzdS3eCCQZBcLCrZC2o1z22R1GjWDZB2fllBBDXzuKbsjlzoeGmD4nPqER13FlQk3HZBZBQZCkErIYJ15KOzdPzwsbO0kvr79TwXKsDWVClycLZBRNeClZCJpkKL3pbbRXZBeEZBvmYOFtwle677CfVcOVyGQYe8REHe48hw")
+  (require '[clj-http.client :as client])
+
+  
   )

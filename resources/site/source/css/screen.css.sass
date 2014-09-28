@@ -98,17 +98,23 @@ header.top-bar
     text-align: center
     font-weight: 700
     color: #fff
-    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3)
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 1)
   h1
     font-size: 4em
     line-height: $vs * 2
   h2
-    color: rgba(255, 255, 255, 0.7)
+    color: rgba(255, 255, 255, 0.9)
     span
       color: rgba(255, 255, 255, 1)
 
   background: url('../img/splash_1.jpg') no-repeat top center
   background-size: cover
+  &.splash1
+    background-image: url('../img/splash_1.jpg')
+  &.splash2
+    background-image: url('../img/splash_2.jpg')
+  &.splash3
+    background-image: url('../img/splash_3.jpg')
   height: 100%
 
 #inputs-row
@@ -136,6 +142,18 @@ header.top-bar
   .btn
     line-height: $vs * 2
     text-align: right
+
+.popular-destinations
+  text-align: center
+  text-shadow: 0px 1px 1px #000
+  font-size: 1.2em
+  margin-top: $vs
+  h2
+    color: #fff
+  a
+    font-weight: bold
+    text-shadow: 0px 1px 5px #000
+    color: lighten($color, 20%)
 
 
 #search-terms-row

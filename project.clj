@@ -15,7 +15,7 @@
                  [enlive "1.1.5"]
                  [clj-time "0.8.0"]
                  [com.rubiconproject.oss/jchronic "0.2.6"]
-                 [com.taoensso/carmine "2.7.0"]
+                 [com.taoensso/carmine "2.7.0" :exclusions [org.clojure/clojure]]
                  [com.taoensso/timbre "3.3.1"]
 
                  ; Cljs

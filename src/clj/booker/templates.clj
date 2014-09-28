@@ -36,9 +36,27 @@
 
 ;; Home
 
-(enlive/deftemplate index-tpl "public/index.html" [req]
+(enlive/defsnippet popular-dest-snippet "public/index.html" [:ul.popular-destinations [:li (enlive/nth-of-type 1)]]
+  [[destination cnt]]
+  [:.num-visitors] (enlive/content (str cnt))
+  [:a.dest-link] (enlive/do->
+                   (enlive/set-attr :href (str "/search"
+                                               "?destination=" destination
+                                               "&date=" (format-date (System/currentTimeMillis))))
+                   (enlive/content destination)))
+
+(enlive/deftemplate -index-tpl "public/index.html"
+  [popular-destinations]
+  [:.splash] (enlive/add-class (rand-nth ["splash1" "splash2" "splash3"]))
   [:form] (enlive/set-attr :action "/search"
                            :method "get")
+  [:ul.popular-destinations] (enlive/content (map popular-dest-snippet popular-destinations))
+  )
+
+(defn index-tpl [req]
+  (let [dests (data/popular-destinations (:store req))]
+    (-index-tpl dests)
+    )
   )
 
 

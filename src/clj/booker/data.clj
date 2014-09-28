@@ -123,7 +123,9 @@
   (put-trip! [this trip])
   (delete-trip! [this trip-id])
   (get-trips-by-user [this user])
-  (query-trips [this destination date]))
+  (query-trips [this destination date])
+  (popular-destinations [this])
+  )
 
 (defn by-user-key [trip] (str "trips-by-user:" (:user-id trip)))
 (defn by-dest-key [trip] (str "trips-by-dest:" (:destination trip)))
@@ -141,6 +143,11 @@
     (->> (get-things (:data this) :trips)
         (filter #(= (:destination %) destination))
         (sort-by #(Math/abs (- (as-date date) (as-date (:date %)))))))
+
+  (popular-destinations [this]
+    (->> (get-things (:data this) :trips)
+         (map :destination)
+         (frequencies)))
 
   booker.data.RedisStore
 
@@ -179,13 +186,29 @@
                         ))]
       (if-not (empty? trip-ids)
         (car/wcar (:conn this) (apply car/hmget "trips" trip-ids)))))
-  )
+
+  (popular-destinations [this]
+    (->> (car/wcar (:conn this) (car/hgetall "trips"))
+         (partition 2)
+         (map last)
+         (map :destination)
+         (frequencies)
+         (sort-by #(* (last %) -1))
+         )))
 
 (comment
   (def u (make-user "test"))
   (def t (make-trip u "Istanbul" (java.util.Date.)))
   (def t2 (make-trip u "Istanbul" (java.util.Date.)))
 
+  (car/wcar nil
+            (car/hkeys "trips")
+            )
+
+  (def rstore (->RedisStore nil))
+  (def astore (->AtomicStore (atom {})))
+  (def this nil)
+  (popular-destinations astore)
   (put-trip! rstore t)
   (put-trip! rstore t2)
   (get-trip rstore (:id t))

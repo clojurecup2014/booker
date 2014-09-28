@@ -5,7 +5,7 @@ layout: home
 ---
 
 
-.splash
+.splash.splash1
   .container
     .welcome.row
       %h1 Booker
@@ -24,3 +24,17 @@ layout: home
               %input.date(type="date" name="date")
           .four.columns.btn
             %button.button.submit(href="#") Meet Someone New
+
+    %section.popular-destinations
+
+      %h2 Popular Destinations
+
+      %ul.popular-destinations
+        %li.popular-destination
+          %span.num-visitors 10
+          people are going to
+          %a.dest-link Istanbul
+        %li.popular-destination
+          %span.num-visitors 5
+          people are going to
+          %a.dest-link Kuala Lumpur

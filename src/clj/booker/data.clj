@@ -55,14 +55,18 @@
 
 (nippy/extend-thaw 1
   [data-input]
-  (->User
-    (.readUTF data-input)
-    (.readUTF data-input)
-    (.readUTF data-input)
-    (.readUTF data-input)
-    (.readUTF data-input)
-    (.readUTF data-input)
-    (.readUTF data-input)))
+  (let [user (->User
+               (.readUTF data-input)
+               (.readUTF data-input)
+               (.readUTF data-input)
+               (.readUTF data-input)
+               (.readUTF data-input)
+               (.readUTF data-input)
+               (.readUTF data-input))]
+  (assoc user
+    :identity (:id user)
+    :roles #{:booker.auth/user}
+  )))
 
 ; #justuserrhings
 (defprotocol UserStore

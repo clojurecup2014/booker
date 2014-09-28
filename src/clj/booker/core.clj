@@ -16,7 +16,8 @@
     [taoensso.carmine.ring :refer [carmine-store]]
     [booker.data :as data :refer [wrap-atom-store store]]
 
-    [org.httpkit.server :refer [run-server]]
+    ;[org.httpkit.server :refer [run-server]]
+    [ring.adapter.jetty :refer [run-jetty]]
     )
   (:gen-class)
   )
@@ -79,7 +80,7 @@
 
 (defn -main []
   (logger/info "Starting server on port 8080...")
-  (run-server base-handler {:port 8080}))
+  (run-jetty base-handler {:port 8080}))
 
 (comment
   (require '[clj-http.client :as client])

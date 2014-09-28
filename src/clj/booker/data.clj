@@ -41,15 +41,16 @@
 
 (defrecord User [id facebook-access-token facebook-user-id email name pic description])
 
+
 (nippy/extend-freeze User 1
   [x data-output]
-  (.writeUTF data-output (:id x))
-  (.writeUTF data-output (:facebook-access-token x))
-  (.writeUTF data-output (:facebook-user-id x))
-  (.writeUTF data-output (:email x))
-  (.writeUTF data-output (:name x))
-  (.writeUTF data-output (:pic x))
-  (.writeUTF data-output (:description x))
+  (.writeUTF data-output (or (:id x) ""))
+  (.writeUTF data-output (or (:facebook-access-token x) ""))
+  (.writeUTF data-output (or (:facebook-user-id x) ""))
+  (.writeUTF data-output (or (:email x) ""))
+  (.writeUTF data-output (or (:name x) ""))
+  (.writeUTF data-output (or (:pic x) ""))
+  (.writeUTF data-output (or (:description x) ""))
   )
 
 (nippy/extend-thaw 1
@@ -140,10 +141,10 @@
 
 (nippy/extend-freeze Trip 2
   [x data-output]
-  (.writeUTF data-output (:id x))
-  (.writeUTF data-output (:user-id x))
-  (.writeUTF data-output (:destination x))
-  (.writeLong data-output (:date x)))
+  (.writeUTF data-output (or (:id x) ""))
+  (.writeUTF data-output (or (:user-id x) ""))
+  (.writeUTF data-output (or (:destination x) ""))
+  (.writeLong data-output (or (:date x) -1)))
 
 (nippy/extend-thaw 2
   [data-input]

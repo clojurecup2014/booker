@@ -2,6 +2,7 @@
   (:require
     [booker.helpers :refer [date as-date]]
     [taoensso.carmine :as car]
+    [taoensso.nippy :as nippy]
     )
   (:import java.util.UUID))
 
@@ -39,6 +40,28 @@
 
 
 (defrecord User [id facebook-access-token facebook-user-id email name pic description])
+
+(nippy/extend-freeze User 1
+  [x data-output]
+  (.writeUTF data-output (:id x))
+  (.writeUTF data-output (:facebook-access-token x))
+  (.writeUTF data-output (:facebook-user-id x))
+  (.writeUTF data-output (:email x))
+  (.writeUTF data-output (:name x))
+  (.writeUTF data-output (:pic x))
+  (.writeUTF data-output (:description x))
+  )
+
+(nippy/extend-thaw 1
+  [data-input]
+  (->User
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)))
 
 ; #justuserrhings
 (defprotocol UserStore
@@ -114,6 +137,21 @@
 
 
 (defrecord Trip [id user-id destination date])
+
+(nippy/extend-freeze Trip 2
+  [x data-output]
+  (.writeUTF data-output (:id x))
+  (.writeUTF data-output (:user-id x))
+  (.writeUTF data-output (:destination x))
+  (.writeLong data-output (:date x)))
+
+(nippy/extend-thaw 2
+  [data-input]
+  (->Trip
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readUTF data-input)
+    (.readLong data-input)))
 
 (defn make-trip [user destination date]
   (->Trip (uuid) (:id user) destination (as-date date)))

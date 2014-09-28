@@ -13,7 +13,9 @@ description: ""
       Profile:
       %span.name Adam Bard
 
-  %section#profile
+  .flash-messages &nbsp;
+
+  #profile
     .row
       .four.columns
         %p
@@ -28,8 +30,9 @@ description: ""
           %span.name Adam
           a message
 
-        %section
-          %textarea(placeholder="Probably mention a bit about you, when you're in which city, and so on")
+        %form#send-message-form
+          %section
+            %textarea(placeholder="Probably mention a bit about you, when you're in which city, and so on")
 
-        %section
-          %button.button Send
+          %section
+            %button.button Send

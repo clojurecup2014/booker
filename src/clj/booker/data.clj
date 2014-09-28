@@ -224,7 +224,7 @@
     (let [dest-key (by-dest-key {:destination destination})
           trip-ids (car/wcar (:conn this)
                     (car/zrangebyscore dest-key
-                        (- (as-date date) (* 1000 60 60 24) 1) ; 1 day before, off by 1
+                        (- (as-date date) (* 1000 60 60 24 7) 1) ; 1 week before, off by 1
                         (+ (as-date date) (* 1000 60 60 24 7) 1) ; 1 week after
                         ))]
       (if-not (empty? trip-ids)

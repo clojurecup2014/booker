@@ -27,6 +27,10 @@
         (friend/authorize #{:booker.auth/user}
                           (templates/delete-trip req)))
 
+  (POST "/send-message/:id" req
+        (friend/authorize #{:booker.auth/user}
+                          (templates/send-message req)))
+
   ; debug routes
   (GET "/status" request
        (let [count (:count (:session request) 0)

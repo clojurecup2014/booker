@@ -1,5 +1,6 @@
 (ns booker.templates
-  (:require [net.cgrand.enlive-html :as enlive]
+  (:require [taoensso.timbre :as logger]
+            [net.cgrand.enlive-html :as enlive]
             net.cgrand.reload
             [booker.data :as data]
             [booker.helpers :refer [as-date format-date attempt-all try* ->Failure]]
@@ -133,14 +134,19 @@
 
 
 (enlive/deftemplate -profile-tpl "public/profile/index.html"
-  [user is-current-user]
+  [user is-current-user flash-msg]
+  [:.flash-messages] (enlive/content flash-msg)
   [:.name] (enlive/content (:name user))
   [:.about] (enlive/content (:description user))
   [:img.pic] (enlive/set-attr :src (photo-url user 150 150))
   [:a.edit] (enlive/set-attr :href "/edit-profile")
   [:#authenticated] (if-not is-current-user (enlive/content "") (enlive/wrap :div))
   [:#unauthenticated] (if is-current-user (enlive/content "") (enlive/wrap :div))
-  )
+  [:#send-message-form :textarea] (enlive/set-attr :name "message")
+  [:#send-message-form] (enlive/do->
+                          (insert-csrf-field)
+                          (enlive/set-attr :action (str "/send-message/" (:id user))
+                                           :method "POST")))
 
 
 (defn profile-tpl [req]
@@ -149,7 +155,7 @@
         is-current-user (= (:id (current-user req)) user-id)
         ]
     (if user
-      (-profile-tpl user is-current-user)
+      (-profile-tpl user is-current-user (:flash req))
       "404 Not Found")))
 
 
@@ -212,9 +218,48 @@
            "&date=" (format-date (or (:date trip) 0))))))
 
 
+(defn send-email [from to msg]
+  (client/post
+    "https://api.postmarkapp.com/email"
+    {:basic-auth ["api" "key-f5ed0911d1ab938386f743d7643f81eb"]
+     :headers {"X-Postmark-Server-Token" (System/getenv "POSTMARK_SECRET")
+               "Content-Type" "application/json"
+               "Accept" "application/json"}
+
+     :body (json/write-str {"From" "booker@adambard.com"
+                            "ReplyTo" from
+                            "To" to
+                            "Subject" "New message from Booker"
+                            "TextBody" msg})}))
+
+(defn send-message [req]
+  (let [from-user (current-user req)
+        to-user (data/get-user (:store req) (-> req :route-params :id))
+        message (get (:form-params req) "message")
+        err-msg (cond
+                  (empty? (:email from-user)) "Please fill in your email address"
+                  (empty? (:email to-user)) "This user cannot be contacted"
+                  (empty? message) "Please enter a message")]
+    (if-not err-msg
+      (future (send-email
+        (:email from-user) (:email to-user)
+        (format (str "Someone sent you a message on Booker\n\n"
+                     "From: %s <%s>\n\n"
+                     "---\n\n"
+                     "%s")
+                (:name from-user)
+                (:email from-user)
+                message)))
+      )
+    (assoc (response/redirect (str "/profile/" (:id to-user)))
+           :flash (or err-msg "Message sent."))
+    ))
+
+
 (comment
   (def tok "CAAKB8mJi3zQBAHgxqg2AdauRemVLszoPDckeNA0HZAEg39cczhgvzdS3eCCQZBcLCrZC2o1z22R1GjWDZB2fllBBDXzuKbsjlzoeGmD4nPqER13FlQk3HZBZBQZCkErIYJ15KOzdPzwsbO0kvr79TwXKsDWVClycLZBRNeClZCJpkKL3pbbRXZBeEZBvmYOFtwle677CfVcOVyGQYe8REHe48hw")
   (require '[clj-http.client :as client])
 
   
   )
+

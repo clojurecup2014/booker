@@ -1,38 +1,7 @@
-!!! html
-%html
-  %head
-    %meta(charset="utf-8")
-    %meta(content="IE=edge,chrome=1" http-equiv="X-UA-Compatible")
-    %meta{name: "description", content: data.page.description}
-
-    %title
-      = data.page.title || "Test Title Please Ignore"
-
-    = stylesheet_link_tag("base", "skeleton", "layout", "screen", "pikaday")
-
-  %body(class=page_classes)
-    =yield
-    .footer
-      .container
-        .copyright
-          Created by
-          %a(href="http://adambard.com/") Adam Bard
-          for
-          %a(href="https://clojurecup.com/") Clojure Cup 2014
-    - if data.env.production
-      = javascript_include_tag "booker.min.js"
-    - else
-      = javascript_include_tag "pikaday.js"
-      = javascript_include_tag "react-0.9.0.js"
-      = javascript_include_tag "compiled/out/goog/base"
-      = javascript_include_tag "compiled/all"
-      :javascript
-        goog.require("booker.core");
-    :javascript
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-XXXXXXXX-XX', 'mydomain.com');
-      ga('send', 'pageview');
+- wrap_layout :base do
+  %header.top-bar
+    %h1
+      %a(href="/") Booker
+    %nav
+      %a(href="/pages/about/") About/FAQ
+  = yield

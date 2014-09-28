@@ -3,9 +3,9 @@
   <head>
     <meta charset='utf-8'>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
-    <meta content='' name='description'>
+    <meta name='description'>
     <title>
-      Search Results | Booker
+      ASDFASDF
     </title>
     <link href="/css/base.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/skeleton.css" media="screen" rel="stylesheet" type="text/css" />
@@ -13,34 +13,38 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='index'>
-    <div class='splash'>
-      <div class='container'>
-        <div class='welcome row'>
-          <h1>Booker</h1>
-          <h2>
-            Find a friend in
-            <span id='city-name'>Rotating City Name</span>
-          </h2>
-        </div>
-        <div class='row' id='inputs-row'>
-          <div id='inputs'>
-            <form action='/search/'>
-              <div class='twelve columns'>
-                <div class='p'>
-                  I'm going to
-                  <input class='destination' name='destination' type='text'>
-                  on
-                  <input class='date' name='date' type='date'>
-                </div>
-              </div>
-              <div class='four columns btn'>
-                <button class='button submit' href='#'>Meet Someone New</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+  <body class='pages pages_about pages_about_index'>
+    <header class='top-bar'>
+      <h1>
+        <a href='/'>Booker</a>
+      </h1>
+      <nav>
+        <a href='/pages/about/'>About/FAQ</a>
+      </nav>
+    </header>
+    <div class='container'>
+      <h1>About/FAQ</h1>
+      <p>
+        This is Booker, my entry to the
+        <a href='http://clojurecup.com/'>2014 Clojure Cup</a>
+        competition.
+      </p>
+      <h2>How does it work?</h2>
+      <ol>
+        <li>You enter a city and a date</li>
+        <li>Magic</li>
+        <li>It shows you some people who are going to that city around that date.</li>
+      </ol>
+      <p>
+        If nobody is found, you can make a profile and post your own plans for the
+        next searcher.
+      </p>
+      <h2>Why do you need my facebook info?</h2>
+      <p>
+        We need facebook because it's easier than implementing our own login
+        stuff, and so we can yank your name and profile picture without you having to
+        provide them.
+      </p>
     </div>
     <div class='footer'>
       <div class='container'>

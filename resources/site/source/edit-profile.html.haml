@@ -17,8 +17,13 @@ description: ""
           %label My Name
           %input.name(type="text")
 
+          %label Email Address
+          %input.email(type="email")
+          %p.helptext We need this so you can be contacted by people who want to meet you
+
           %label About Me
           %textarea.about(placeholder="I like ponies")
 
-          %button.button(type="submit") Save
+          %section
+            %button.button(type="submit") Save
 

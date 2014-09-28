@@ -1,6 +1,7 @@
 ---
-title: "Booker: Find a friend while travelling"
+title: "Search Results | Booker"
 description: ""
+layout: home
 ---
 
 
@@ -14,12 +15,12 @@ description: ""
 
     .row#inputs-row
       #inputs
-        %form
-          .six.columns
-            %label I'm going to
-            %select.destination(name="destination")
-          .six.columns
-            %label on
-            %input.date(type="date" name="date")
+        %form(action="/search/")
+          .twelve.columns
+            .p
+              I'm going to
+              %input.destination(type="text" name="destination")
+              on
+              %input.date(type="date" name="date")
           .four.columns.btn
             %button.button.submit(href="#") Meet Someone New

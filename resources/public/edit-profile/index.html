@@ -13,7 +13,15 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='edit-profile'>
+  <body class='edit-profile edit-profile_index'>
+    <header class='top-bar'>
+      <h1>
+        <a href='/'>Booker</a>
+      </h1>
+      <nav>
+        <a href='/pages/about/'>About/FAQ</a>
+      </nav>
+    </header>
     <div class='container'>
       <h1>My Profile</h1>
       <section id='profile'>
@@ -25,9 +33,14 @@
             <div class='twelve columns'>
               <label>My Name</label>
               <input class='name' type='text'>
+              <label>Email Address</label>
+              <input class='email' type='email'>
+              <p class='helptext'>We need this so you can be contacted by people who want to meet you</p>
               <label>About Me</label>
               <textarea class='about' placeholder='I like ponies'></textarea>
-              <button class='button' type='submit'>Save</button>
+              <section>
+                <button class='button' type='submit'>Save</button>
+              </section>
             </div>
           </div>
         </form>
@@ -55,3 +68,4 @@
     </script>
   </body>
 </html>
+

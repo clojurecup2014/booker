@@ -16,6 +16,9 @@ description: ""
         %input.date(type="date")
         %button.button Update
 
+  %p#no-results-found
+    I guess nobody's around. Why not be the first?
+
   %table#search-result-table
     %thead
       %tr
@@ -26,37 +29,37 @@ description: ""
     %tbody
       %tr.search-result-row
         %td.name
-          %a.profile(href="profile.html")
+          %a.profile(href="/profile/")
             %img.pic(src="/img/pic.jpg")
-          %a.profile(href="profile.html")
+          %a.profile(href="/profile/")
             %span.name Adam Bard
         %td.destination
           Istanbul
         %td.date
           September 26, 2014
         %td.controls
-          %a.button.profile(href="profile.html")
-            Contact
           %form.delete
             %button.delete Delete
+          %a.button.profile(href="/profile/")
+            Contact
       %tr.search-result-row
         %td.name
-          %a(href="profile.html")
+          %a(href="/profile/")
             %img.pic(src="/img/pic.jpg")
-          %a(href="profile.html")
+          %a(href="/profile/")
             %span.name Adam Bard
         %td.destination
           Istanbul
         %td.date
           September 26, 2014
         %td.controls
-          %a.button(href="profile.html")
+          %a.button(href="/profile/")
             Contact
       %tr.search-result-row
         %td.name
-          %a(href="profile.html")
+          %a(href="/profile/")
             %img.pic(src="/img/pic.jpg")
-          %a(href="profile.html")
+          %a(href="/profile/")
             %span.name Adam Bard
         %td.destination
           Istanbul
@@ -66,17 +69,20 @@ description: ""
           %a.button
             Contact
 
-  %h2 Want to meet people?
 
-  #authenticated
-    %form#add-trip
-      I'm going to
-      %input.destination(type="text")
-      around
-      %input.date(type="date")
-      %button.button(type="submit") Add Me To The List
+  .trip-submit
+    %h2 Want to meet people?
 
-  #unauthenticated
-    %p
-      %a.button Authenticate with Facebook
-      to set up your profile.
+    %section
+      #authenticated
+        %form#add-trip
+          I'm going to
+          %input.destination(type="text")
+          around
+          %input.date(type="date")
+          %button.button(type="submit") Add Me To The List
+
+      #unauthenticated
+        %p
+          %a.button Authenticate with Facebook
+          to set up your profile.

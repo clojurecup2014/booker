@@ -13,12 +13,20 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='profile'>
+  <body class='profile profile_index'>
+    <header class='top-bar'>
+      <h1>
+        <a href='/'>Booker</a>
+      </h1>
+      <nav>
+        <a href='/pages/about/'>About/FAQ</a>
+      </nav>
+    </header>
     <div class='container'>
       <div id='authenticated'>
         <h1>
           My Profile
-          <a class='edit' href='edit-profile.html'>Edit</a>
+          <a class='edit' href='/edit-profile'>Edit</a>
         </h1>
       </div>
       <div id='unauthenticated'>
@@ -30,22 +38,23 @@
       <section id='profile'>
         <div class='row'>
           <div class='four columns'>
-            <img class='pic' src='/img/pic.jpg'>
+            <p>
+              <img class='pic' src='/img/pic.jpg'>
+            </p>
           </div>
           <div class='twelve columns'>
-            <label>My Name</label>
-            <strong class='name'>Adam</strong>
-            <label>About Me</label>
-            <strong class='about'>I like ponies.</strong>
+            <p class='about'>I like ponies.</p>
             <h2>
               Send
               <span class='name'>Adam</span>
               a message
             </h2>
-            <p>
+            <section>
               <textarea placeholder="Probably mention a bit about you, when you're in which city, and so on"></textarea>
+            </section>
+            <section>
               <button class='button'>Send</button>
-            </p>
+            </section>
           </div>
         </div>
       </section>
@@ -72,3 +81,4 @@
     </script>
   </body>
 </html>
+

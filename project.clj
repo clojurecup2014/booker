@@ -16,6 +16,7 @@
                  [clj-time "0.8.0"]
                  [com.rubiconproject.oss/jchronic "0.2.6"]
                  [com.taoensso/carmine "2.7.0"]
+                 [com.taoensso/timbre "3.3.1"]
 
                  ; Cljs
                  [org.clojure/clojurescript "0.0-2197"]
@@ -46,8 +47,10 @@
                          :optimizations :whitespace
                          :pretty-print false
                          :preamble ["public/js/react-0.9.0.js"
+                                    "public/js/jquery-1.11.1.min.js"
                                     "public/js/moment.min.js"
                                     "public/js/pikaday.js"
+                                    "public/js/typeahead.bundle.min.js"
                                     ]
                         }}]}
   :figwheel {

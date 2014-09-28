@@ -36,12 +36,15 @@
 
 ;; Home
 
-(enlive/deftemplate index-tpl "public/index.html" [req])
+(enlive/deftemplate index-tpl "public/index.html" [req]
+  [:form] (enlive/set-attr :action "/search"
+                           :method "get")
+  )
 
 
 ;; Search
 
-(enlive/defsnippet search-result-row "public/search.html" [[:tr.search-result-row (enlive/nth-of-type 1)]]
+(enlive/defsnippet search-result-row "public/search/index.html" [[:tr.search-result-row (enlive/nth-of-type 1)]]
   [req {id :id user :user dest :destination date :date}]
   [:span.name] (enlive/content (:name user))
   [:.date] (enlive/content (format-date date))
@@ -55,7 +58,7 @@
                                       :method "POST"))
                    (enlive/substitute "")))
 
-(enlive/deftemplate -search-tpl "public/search.html"
+(enlive/deftemplate -search-tpl "public/search/index.html"
   [req {dest :destination date :date results :results}]
   [:input.destination] (enlive/do->
                   (enlive/set-attr :value dest)
@@ -103,7 +106,7 @@
 ;; Profile
 
 
-(enlive/deftemplate -profile-tpl "public/profile.html"
+(enlive/deftemplate -profile-tpl "public/profile/index.html"
   [user is-current-user]
   [:.name] (enlive/content (:name user))
   [:.about] (enlive/content (:description user))
@@ -127,9 +130,10 @@
 ;; Create/Edit Profile
 
 
-(enlive/deftemplate edit-profile-tpl "public/edit-profile.html"
+(enlive/deftemplate edit-profile-tpl "public/edit-profile/index.html"
   [user]
   [:input.name] (enlive/set-attr :value (:name user) :name "name")
+  [:input.email] (enlive/set-attr :value (:email user) :name "email")
   [:textarea.about] (enlive/do-> (enlive/content (:description user))
                               (enlive/set-attr :name "description"))
   [:img.pic] (enlive/set-attr :src (photo-url user 150 150))
@@ -150,11 +154,11 @@
         params (:form-params req)
         user (assoc user
                     :name (get params "name")
+                    :email (get params "email")
                     :description (get params "description"))
         user-id (:id user)
         ]
     (data/put-user! (:store req) user)
-
 
     (assoc (response/redirect (str "/profile/" user-id))
            :session (assoc-in (:session req)
@@ -176,7 +180,10 @@
         trip (data/get-trip (:store req) trip-id)]
     (if (= (:user-id trip) (:id user))
       (data/delete-trip! (:store req) trip-id))
-    (response/redirect (str "/profile/" (:id user)))))
+    (response/redirect
+      (str "/search?destination="
+           (:destination trip)
+           "&date=" (format-date (or (:date trip) 0))))))
 
 
 (comment

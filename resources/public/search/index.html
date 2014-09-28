@@ -13,7 +13,15 @@
     <link href="/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/css/pikaday.css" media="screen" rel="stylesheet" type="text/css" />
   </head>
-  <body class='search'>
+  <body class='search search_index'>
+    <header class='top-bar'>
+      <h1>
+        <a href='/'>Booker</a>
+      </h1>
+      <nav>
+        <a href='/pages/about/'>About/FAQ</a>
+      </nav>
+    </header>
     <div class='container'>
       <h1>
         Search
@@ -29,6 +37,9 @@
           </p>
         </form>
       </div>
+      <p id='no-results-found'>
+        I guess nobody's around. Why not be the first?
+      </p>
       <table id='search-result-table'>
         <thead>
           <tr>
@@ -40,10 +51,10 @@
         <tbody>
           <tr class='search-result-row'>
             <td class='name'>
-              <a class='profile' href='profile.html'>
+              <a class='profile' href='/profile/'>
                 <img class='pic' src='/img/pic.jpg'>
               </a>
-              <a class='profile' href='profile.html'>
+              <a class='profile' href='/profile/'>
                 <span class='name'>Adam Bard</span>
               </a>
             </td>
@@ -54,20 +65,20 @@
               September 26, 2014
             </td>
             <td class='controls'>
-              <a class='button profile' href='profile.html'>
-                Contact
-              </a>
               <form class='delete'>
                 <button class='delete'>Delete</button>
               </form>
+              <a class='button profile' href='/profile/'>
+                Contact
+              </a>
             </td>
           </tr>
           <tr class='search-result-row'>
             <td class='name'>
-              <a href='profile.html'>
+              <a href='/profile/'>
                 <img class='pic' src='/img/pic.jpg'>
               </a>
-              <a href='profile.html'>
+              <a href='/profile/'>
                 <span class='name'>Adam Bard</span>
               </a>
             </td>
@@ -78,17 +89,17 @@
               September 26, 2014
             </td>
             <td class='controls'>
-              <a class='button' href='profile.html'>
+              <a class='button' href='/profile/'>
                 Contact
               </a>
             </td>
           </tr>
           <tr class='search-result-row'>
             <td class='name'>
-              <a href='profile.html'>
+              <a href='/profile/'>
                 <img class='pic' src='/img/pic.jpg'>
               </a>
-              <a href='profile.html'>
+              <a href='/profile/'>
                 <span class='name'>Adam Bard</span>
               </a>
             </td>
@@ -106,21 +117,25 @@
           </tr>
         </tbody>
       </table>
-      <h2>Want to meet people?</h2>
-      <div id='authenticated'>
-        <form id='add-trip'>
-          I'm going to
-          <input class='destination' type='text'>
-          around
-          <input class='date' type='date'>
-          <button class='button' type='submit'>Add Me To The List</button>
-        </form>
-      </div>
-      <div id='unauthenticated'>
-        <p>
-          <a class='button'>Authenticate with Facebook</a>
-          to set up your profile.
-        </p>
+      <div class='trip-submit'>
+        <h2>Want to meet people?</h2>
+        <section>
+          <div id='authenticated'>
+            <form id='add-trip'>
+              I'm going to
+              <input class='destination' type='text'>
+              around
+              <input class='date' type='date'>
+              <button class='button' type='submit'>Add Me To The List</button>
+            </form>
+          </div>
+          <div id='unauthenticated'>
+            <p>
+              <a class='button'>Authenticate with Facebook</a>
+              to set up your profile.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
     <div class='footer'>
@@ -145,3 +160,4 @@
     </script>
   </body>
 </html>
+

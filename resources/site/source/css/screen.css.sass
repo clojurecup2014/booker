@@ -1,9 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Oxygen:400,700,300)
 
 // Golden ratio bitches!
-$vs: 40px
+$vs: 30px
 $hs: $vs / 1.681
 $color: #0bf
+$error-color: #e40
 
 body
   color: #444
@@ -17,11 +18,37 @@ h1, h2, h3, h4, h5, h6, p, ul, li, section
   line-height: $vs
   margin: $vs 0 0 0
 
+h1, h2, h3, h4, h5, h6
+  font-weight: 700
+
+h1
+  font-size: 2.4em
+
 li+li
   margin-top: 0px
 
 a, a:visited
   color: $color
+  text-decoration: none
+  &:hover
+    color: darken($color, 20%)
+
+input[type="text"], input[type="email"], input[type="dates"], textarea, label
+  line-height: $vs
+  font-size: inherit
+  padding: 0
+  margin: 0
+
+label
+  margin-top: $vs
+
+label:first-child
+  margin-top: 0
+
+.helptext
+  margin-top: 0
+  color: #999
+  font-size: 0.8em
 
 // Make buttons more interesting
 .button, .button:visited
@@ -36,9 +63,39 @@ a, a:visited
     color: #fff
     border: 0px
 
+header.top-bar
+  line-height: $vs * 2
+  height: $vs * 2
+  background-color: $color
+  color: #fff
+  padding: 0 $hs
+  border-bottom: 2px solid darken($color, 5%)
+  a
+    color: #fff
+    text-decoration: none
+    &:hover
+      color: lighten($color, 40%)
+  h1
+    float: left
+    font-size: 1.6em
+    font-weight: bold
+    line-height: inherit
+    margin: 0
+  form
+    float: left
+    input
+      border: 0px
+      border-radius: 2px
+      line-height: $vs
+      font-size: inherit
+      margin-left: $hs
+  nav
+    float: right
+    text-align: right
+
 .splash
   color: #fff
-  padding: $vs * 4
+  padding: ($vs * 4) 0 ($vs * 6) 0
   h1, h2
     text-align: center
     font-weight: 700
@@ -51,6 +108,7 @@ a, a:visited
     color: rgba(255, 255, 255, 0.7)
     span
       color: rgba(255, 255, 255, 1)
+
   background: url('../img/splash_1.jpg') no-repeat top center
   background-size: cover
   height: 100%
@@ -58,7 +116,7 @@ a, a:visited
 #inputs-row
   font-size: 1.2em
   margin-top: $vs * 2
-  background: rgba(255, 255, 255, 0.7)
+  background: rgba(255, 255, 255, 0.8)
   line-height: $vs
   font-family: inherit
   color: #444
@@ -66,7 +124,11 @@ a, a:visited
     margin: 0
     padding: 0
 
+  .p
+    margin: 0
+    line-height: $vs * 2
   input, label, select
+    display: inline
     font-size: inherit
     font-family: inherit
     font-weight: bold
@@ -74,16 +136,19 @@ a, a:visited
     padding: 0
     padding: 0
   .btn
-    margin-top: $vs / 2
+    line-height: $vs * 2
     text-align: right
 
 
 #search-terms-row
-  input
+  margin: 0
+  form, input
     display: inline
+    margin: 0
 
 table#search-result-table
   width: 100%
+  margin-top: $vs
   font-size: 1.2em
   border-collapse: collapse
   th, td
@@ -103,20 +168,54 @@ table#search-result-table
     float: left
   .controls
     text-align: right
+    form
+      display: inline
+      margin: 0
+      padding: 0
+
+    button.delete
+      background: transparent
+      border: none
+      font-size: inherit
+      font-weight: 400
+      color: $error-color
+      padding: 0 $hs
+      margin: 0
+      &:hover
+        color: darken($error-color, 10%)
+
+.trip-submit
+  margin-top: $vs * 2
+
+  form, input, button
+    display: inline
+    margin: 0
 
 #profile
   .pic
     width: 150px
     height: 150px
 
+textarea
+  width: 100%
+  height: $vs * 5
+
+h1 a.edit
+  font-size: 0.5em
+  text-decoration: none
+
 
 .footer
-  margin-top: $vs * 2
   background: #444
   border-top: 2px solid #222
   color: #fff
   padding: $vs * 2 0
+  margin-top: $vs * 2
   a
     color: $color
   .copyright
     text-align: right
+
+.splash+.footer
+  // Get right up in there.
+  margin-top: 0

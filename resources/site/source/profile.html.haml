@@ -7,7 +7,7 @@ description: ""
   #authenticated
     %h1
       My Profile
-      %a.edit(href="edit-profile.html") Edit
+      %a.edit(href="/edit-profile") Edit
   #unauthenticated
     %h1
       Profile:
@@ -16,22 +16,20 @@ description: ""
   %section#profile
     .row
       .four.columns
-        %img.pic(src="/img/pic.jpg")
+        %p
+          %img.pic(src="/img/pic.jpg")
 
       .twelve.columns
 
-        %label My Name
-        %strong.name Adam
-
-        %label About Me
-        %strong.about I like ponies.
+        %p.about I like ponies.
 
         %h2
           Send
           %span.name Adam
           a message
 
-        %p
+        %section
           %textarea(placeholder="Probably mention a bit about you, when you're in which city, and so on")
 
+        %section
           %button.button Send

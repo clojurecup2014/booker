@@ -63,7 +63,6 @@
 
 (def base-handler
   (-> main
-      (debug-session)
       (wrap-current-user)
       (friend/authenticate auth-config)
       (wrap-content-type)

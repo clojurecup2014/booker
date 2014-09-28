@@ -74,6 +74,14 @@
                          (enlive/set-attr :method "GET")
                          )
 
+  [:#no-results-found] (if (empty? results)
+                         (enlive/add-class "ok")
+                         (enlive/substitute ""))
+
+  [:#search-result-table] (if (empty? results)
+                            (enlive/substitute "")
+                            (enlive/add-class "ok")
+                            )
   [:#search-result-table :tbody] (enlive/content (map search-result-row (repeat req) results))
 
   [:form#add-trip] (enlive/do->

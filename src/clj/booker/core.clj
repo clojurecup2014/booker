@@ -19,7 +19,6 @@
     ;[org.httpkit.server :refer [run-server]]
     [ring.adapter.jetty :refer [run-jetty]]
     )
-  (:gen-class)
   )
 
 (logger/set-config! [:appenders :spit :enabled?] true)

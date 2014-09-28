@@ -29,7 +29,6 @@
             [lein-figwheel "0.1.4-SNAPSHOT"]]
 
   :main booker.core
-  :aot [booker.core]
   :source-paths ["src/clj"]
 
   :cljsbuild {
